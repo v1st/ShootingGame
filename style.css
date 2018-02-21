@@ -5,7 +5,7 @@
 }
 
 body {
-    background: #79beff;
+    background: #e0e0e0;
     width: 100vw;
 }
 
@@ -15,5 +15,7 @@ body {
 }
 
 #window {
-    background: rgb(243, 243, 243);
+    background: rgb(29, 29, 29);
+    border: 1px solid #333;
+    box-shadow: 0px 10px 20px rgba(41, 41, 41, 0.24);
 }
