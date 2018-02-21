@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #79beff;
+    width: 100vw;
+}
+
+#gameArea {
+    display: block;
+    margin: 80px 25%;
+}
+
+#window {
+    background: rgb(243, 243, 243);
+}
