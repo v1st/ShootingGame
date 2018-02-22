@@ -43,7 +43,7 @@ var controller = {
         }
     },
     mouseListener: function (e) {
-        var mouseState = (e.type == 'mousedown');
+        var mouseState = (e.type == 'click');
 
         if (e.button === 0) {
             controller.shoot = mouseState;
@@ -53,13 +53,19 @@ var controller = {
 }
 
 var bullets = {
+    x: player.x,
+    y: player.y,
+    velX: 0,
+    velY: 0,
+    speed: 20,
+    friction: 0.75,
     draw: function drawBullets() {
         ctx.beginPath();
-        ctx.arc(player.x, player.y, 20, 0, Math.PI * 2);
+        ctx.arc(bullets.x, bullets.y, 20, 0, Math.PI * 2);
         ctx.fillStyle = "#ffff3a";
         ctx.fill();
         ctx.closePath();
-    },
+    }
 }
 
 // Game loop to redraw frames and take input
@@ -88,10 +94,23 @@ function gameLoop() {
         }
     }
 
-    player.velY *= player.friction;
-    player.y += player.velY;
     player.velX *= player.friction;
     player.x += player.velX;
+    player.velY *= player.friction;
+    player.y += player.velY;
+    
+    
+    if (controller.shoot) {
+        bullets.draw();
+        if (bullets.velX > -bullets.speed) {
+            bullets.velX--;
+        }
+    }
+
+    bullets.velX *= bullets.friction;
+    bullets.x += bullets.velX;
+    bullets.velY *= bullets.friction;
+    bullets.y += bullets.velY;
 
     if (player.x >= canvas.width - 10) {
         player.x = canvas.width - 10;
@@ -105,17 +124,14 @@ function gameLoop() {
         player.y = 10;
     }
 
-    if (controller.shoot) {
-        bullets.draw();
-    }
-
+    
     player.draw();
     requestAnimationFrame(gameLoop);
 }
 
 window.addEventListener('keydown', controller.keyListener);
 window.addEventListener('keyup', controller.keyListener);
-window.addEventListener('mousedown', controller.mouseListener);
+window.addEventListener('click', controller.mouseListener);
 window.addEventListener('mouseup', controller.mouseListener)
 
 gameLoop();
